@@ -22,24 +22,31 @@ def fibs_rec(num, i = 0, arr = [])
   arr
 end
 
-# p fibs(5)
-# p fibs_rec(5)
+p fibs(5)
+p fibs_rec(5)
 
-def merge_sort(arr, arr1 = [], arr2 = [], arr3 = [])
-  return arr if arr.length <= 1
+def merge_sort(arr)
+  return arr if arr.length < 2
 
   arr1 = arr[0..arr.length / 2 - 1]
   arr2 = arr[arr.length / 2..arr.length]
-
-  if arr3.empty?
-    arr3 = merge_sort(arr1, arr1, arr2)
-  else
-    p 'test'
-    arr[1]
-  end
+  merge(merge_sort(arr1), merge_sort(arr2))
 end
 
-arr = [7,8,5,6,3,4,1,2]
+def merge(left, right, arr = [])
+  while !left.empty? && !right.empty?
+    if left[0] < right[0]
+      arr.push(left.shift)
+    else
+      arr.push(right.shift)
+    end
+  end
+  arr.push(left.shift) until left.empty?
+  arr.push(right.shift) until right.empty?
+  arr
+end
+
+arr = [7, 8, 5, 6, 3, 4, 1, 2]
 p merge_sort(arr)
-arr2 = [7,8,5,6,3,4,1,2,9]
-#merge_sort(arr2)
+arr2 = [7, 8, 5, 6, 3, 4, 1, 2, 9]
+p merge_sort(arr2)
